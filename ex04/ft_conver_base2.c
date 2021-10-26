@@ -6,13 +6,13 @@
 /*   By: hojin <hojin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 17:17:08 by hojin             #+#    #+#             */
-/*   Updated: 2021/10/26 17:23:13 by hojin            ###   ########.fr       */
+/*   Updated: 2021/10/26 23:35:00 by hojin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdlib.h>
 
 char	*ft_convert_base2(char *nbr, char *base_from, char *base_to)
 {
-	write(1, "1", 1);
+	return (nbr);
 }
