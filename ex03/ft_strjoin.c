@@ -6,15 +6,15 @@
 /*   By: hojin <hojin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 13:18:46 by hojin             #+#    #+#             */
-/*   Updated: 2021/10/26 17:12:49 by hojin            ###   ########.fr       */
+/*   Updated: 2021/10/27 19:27:14 by hojin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	str_len(char *str)
+long long	ft_strlen(char *str)
 {
-	int	len;
+	long long	len;
 
 	len = 0;
 	while (str[len])
@@ -22,72 +22,44 @@ int	str_len(char *str)
 	return (len);
 }
 
-char	*str_cat(char *dest, char *src)
+char	*ft_strcat(char *dest, char *src)
 {
-	int	len;
 	int	idx;
 
-	len = 0;
 	idx = 0;
-	while (dest[len])
-		len++;
 	while (src[idx])
 	{
-		dest[len] = src[idx];
-		len++;
+		dest[idx] = src[idx];
 		idx++;
 	}
-	dest[len] = 0;
 	return (dest);
 }
 
-int	str_seps_all_len(char **strs, char *seps, int size)
+char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	int	idx;
-	int	all_len;
+	char		*arr;
+	char		*tmp;
+	long long	total_len;
+	int			idx;
 
+	if (!size)
+	{
+		arr = ((char *)malloc(sizeof(char)));
+		arr[0] = 0;
+		return (arr);
+	}
+	total_len = 0;
 	idx = 0;
-	all_len = 0;
+	while (idx < size)
+		total_len += ft_strlen(strs[idx++]);
+	arr = (char *)malloc(total_len + (size - 1) * ft_strlen(sep) + 1);
+	tmp = ft_strcat(arr, strs[0]);
+	idx = 1;
 	while (idx < size)
 	{
-		all_len += str_len(strs[idx]);
-		if (idx < size - 1)
-			all_len += str_len(seps);
-		idx++;
+		tmp = ft_strcat(tmp, sep);
+		tmp = ft_strcat(tmp, strs[idx++]);
 	}
-	return (all_len);
-}
-
-char	*make_strjoin(char **strs, char *sep, int all_lens, int size)
-{
-	char	*result;
-	int		idx;
-
-	idx = 0;
-	result = malloc((sizeof(char) * (all_lens + 1)));
-	if (result == NULL)
-		return (0);
-	while (idx < size)
-	{
-		str_cat(result, strs[idx]);
-		if (idx < size - 1)
-			str_cat(result, sep);
-		idx++;
-	}
-	return (result);
-}
-
-char	*ft_strjoin(int size, char **strs, char *seps)
-{
-	char	*result;
-	int		all_lens;
-
-	if (size == 0)
-	{
-		result = (char *)malloc(sizeof(char));
-		return (result);
-	}
-	all_lens = str_seps_all_len(strs, seps, size);
-	result = make_strjoin(strs, seps, all_lens, size);
-	return (result);
+	*tmp = 0;
+	return (arr);
 }
